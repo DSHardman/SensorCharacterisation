@@ -1,4 +1,4 @@
-T = readtable('RepeatedProbe/Boffset.log'); %file to read
+T = readtable('RandomProbe/Logging.log'); %file to read
 
 %define resistors in potential divider
 res = 1.2e3;
@@ -26,6 +26,8 @@ end
 legend();
 xlabel('Time (s)')
 ylabel('Resistance (Ohms)')
+ylim([0 10000])
+xlim([35030 35090])
 
 function dataout = converttores(data, kres)
     dataout = zeros(size(data));
