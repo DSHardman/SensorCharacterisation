@@ -13,9 +13,11 @@ for i = 1:size(T,1)
     response(i,:) = results;
 end
 
+%{
 for i = 1:8
     response(:,i) = converttores(response(:,i), res);
 end
+%}
 
 figure();
 for i = [0 1 2 3 4 5 6 7]
@@ -26,7 +28,7 @@ end
 legend();
 xlabel('Time (s)')
 ylabel('Resistance (Ohms)')
-ylim([0 10000])
+%ylim([0 10000])
 xlim([35030 35090])
 
 function dataout = converttores(data, kres)
