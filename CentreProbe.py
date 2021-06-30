@@ -12,7 +12,6 @@ def newspot(x, y):
         continue
 
 urnie = kgr.kg_robot(port=30010, db_host="169.254.155.50")
-#urnie.set_tcp(wp.probing_tcp)
 urnie.set_tcp(wp.probing_tcp)
 
 

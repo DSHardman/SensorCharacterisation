@@ -17,8 +17,6 @@ def newspot(x, y, time_start):
     while time.time() - time_start < 10:
         continue
 
-
-file = open("RandomLocations.txt", 'w')
 urnie = kgr.kg_robot(port=30010, db_host="169.254.155.50")
 urnie.set_tcp(wp.probing_tcp)
 
@@ -26,6 +24,7 @@ urnie.set_tcp(wp.probing_tcp)
 #urnie.movel([-0.0721309, -0.316214, 0.0260109, 1.87748, -2.50178, 0.0212946], acc=0.02, vel=0.02)
 
 for i in range(50):
+    file = open("RandomLocations.txt", 'a')
     time_start = time.time()
     x = random.random()*(upper_bound-lower_bound) + lower_bound
     y = random.random()*(upper_bound-lower_bound) + lower_bound
@@ -33,7 +32,6 @@ for i in range(50):
     line = str(x) + "," + str(y) + "\n"
     file.write(line)
     print(i)
-
+    file.close()
 
 urnie.close()
-file.close()
