@@ -1,20 +1,22 @@
 unsigned long mtime;
+unsigned long gtime;
 
 int sensorPin0 = A0;    // select the input pin for the potentiometer
 int sensorPin1 = A1;
 int sensorPin2 = A2;
 int sensorPin3 = A3;
-/*
+
 int sensorPin4 = A4;
 int sensorPin5 = A5;
 int sensorPin6 = A6;
 int sensorPin7 = A7;
-*/
+
+/*
 int sensorPin4 = A12;
 int sensorPin5 = A13;
 int sensorPin6 = A14;
 int sensorPin7 = A15;
-
+*/
 
 int sensorValue0 = 0;  // variable to store the value coming from the sensor
 int sensorValue1 = 0;
@@ -27,6 +29,7 @@ int sensorValue7 = 0;
  
 void setup() {
   // begin the serial monitor @ 9600 baud
+  gtime = millis();
   Serial.begin(9600);
 }
  
@@ -56,7 +59,9 @@ void loop() {
   Serial.print(",");
   Serial.print(sensorValue6);
   Serial.print(",");
-  Serial.println(sensorValue7);
+  Serial.print(sensorValue7);
+  Serial.print(",");
+  Serial.println(millis() - gtime);
  
   while (millis() - mtime < 100) {
     continue;

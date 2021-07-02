@@ -78,6 +78,7 @@ end
 %% Section 4: create 4 arrays of sensor signals
 
 rawfiltered = zeros(5000,8);
+c3filtered = zeros(5000,8, 3);
 relativefiltered = zeros(5000,8);
 rawunfiltered = zeros(5000,8);
 relativeunfiltered = zeros(5000,8);
@@ -85,6 +86,7 @@ relativeunfiltered = zeros(5000,8);
 for i = 1:5000
     for j = 1:8
         rawfiltered(i,j) = fresponse(locations(i), j);
+        c3filtered(i,j,:) = [fresponse(locations(i)-50, j) fresponse(locations(i)+50, j) fresponse(locations(i), j)];
         relativefiltered(i,j) = calc_relative(fresponse, locations(i), j);
         rawunfiltered(i,j) = response(locations(i), j);
         relativeunfiltered(i,j) = calc_relative(response, locations(i), j);
