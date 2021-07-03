@@ -1,155 +1,119 @@
 %% Default - all sensors functioning
 
-Aerrors = zeros(length(A3),1);
-for i = 1:length(A3)
-    [pred, ~, ~] = A3func(A3(i, :));
-    Aerrors(i) = sqrt((pred(1)-AProbedPoints(i,1))^2 + ...
-        (pred(2)-AProbedPoints(i,2))^2);
+Aerrors = zeros(length(Acleanrelfil),1);
+for i = 1:length(Acleanrelfil)
+    [pred, ~, ~] = Anet(Acleanrelfil(i, :));
+    Aerrors(i) = sqrt((pred(1)-Acleanprobed(i,1))^2 + ...
+        (pred(2)-Acleanprobed(i,2))^2);
 end
 
-interpolant = scatteredInterpolant(AProbedPoints(:,1),...
-    AProbedPoints(:,2),Aerrors);
+interpolant = scatteredInterpolant(Acleanprobed(:,1),...
+    Acleanprobed(:,2),Aerrors);
 [xx,yy] = meshgrid(linspace(10,35,100));
 error_interp = interpolant(xx,yy);
 
 figure();
-subplot(2,4,1);
+subplot(2,3,1);
 contourf(xx,yy,error_interp);
 title('A errors');
 caxis([0 20]);
+text(15,15,string(mean(Aerrors)),'Fontsize',15);
 
-Berrors = zeros(length(B3),1);
-for i = 1:length(B3)
-    [pred, ~, ~] = B3func(B3(i, :));
-    Berrors(i) = sqrt((pred(1)-BProbedPoints(i,1))^2 + ...
-        (pred(2)-BProbedPoints(i,2))^2);
+Berrors = zeros(length(Bcleanrelfil),1);
+for i = 1:length(Bcleanrelfil)
+    [pred, ~, ~] = Bnet(Bcleanrelfil(i, :));
+    Berrors(i) = sqrt((pred(1)-Bcleanprobed(i,1))^2 + ...
+        (pred(2)-Bcleanprobed(i,2))^2);
 end
 
 
-interpolant = scatteredInterpolant(BProbedPoints(:,1),...
-    BProbedPoints(:,2),Berrors);
+interpolant = scatteredInterpolant(Bcleanprobed(:,1),...
+    Bcleanprobed(:,2),Berrors);
 [xx,yy] = meshgrid(linspace(10,35,100));
 error_interp = interpolant(xx,yy);
 
-subplot(2,4,5);
+subplot(2,3,4);
 contourf(xx,yy,error_interp)
 title('B errors');
 caxis([0 20]);
+text(15,15,string(mean(Berrors)),'Fontsize',15);
 
-%% Lost edges - sensors 4 & 8 broken
+%% Lost sensors: 4 & 5 broken & unknown
 
-Aerrors = zeros(5000,1);
-for i = 1:5000
-    [pred, ~, ~] = ANN_lostedge([Arelativefiltered(i, 1:3)...
-        Arelativefiltered(i, 5:7)]);
-    Aerrors(i) = sqrt((pred(1)-AProbedPoints(i,1))^2 + ...
-        (pred(2)-AProbedPoints(i,2))^2);
+Aerrors = zeros(length(Acleanrelfil),1);
+for i = 1:length(Acleanrelfil)
+    [pred, ~, ~] = Anet([Acleanrelfil(i, 1:5) 0 0 Acleanrelfil(i, 8)]);
+    Aerrors(i) = sqrt((pred(1)-Acleanprobed(i,1))^2 + ...
+        (pred(2)-Acleanprobed(i,2))^2);
 end
 
-interpolant = scatteredInterpolant(AProbedPoints(:,1),...
-    AProbedPoints(:,2),Aerrors);
+interpolant = scatteredInterpolant(Acleanprobed(:,1),...
+    Acleanprobed(:,2),Aerrors);
 [xx,yy] = meshgrid(linspace(10,35,100));
 error_interp = interpolant(xx,yy);
 
-subplot(2,4,2);
+subplot(2,3,2);
 contourf(xx,yy,error_interp);
-title('A errors: Edge Sensors Break');
+title('A errors: unknown damage');
 caxis([0 20]);
+text(15,15,string(mean(Aerrors)),'Fontsize',15);
 
-Berrors = zeros(5000,1);
-for i = 1:5000
-    [pred, ~, ~] = BNN_lostedge([Brelativefiltered(i, 1:3)...
-         Brelativefiltered(i, 5:7)]);
-    Berrors(i) = sqrt((pred(1)-BProbedPoints(i,1))^2 + ...
-        (pred(2)-BProbedPoints(i,2))^2);
+Berrors = zeros(length(Bcleanrelfil),1);
+for i = 1:length(Bcleanrelfil)
+    [pred, ~, ~] = Bnet([Bcleanrelfil(i, 1:5) 0 0 Bcleanrelfil(i, 8)]);
+    Berrors(i) = sqrt((pred(1)-Bcleanprobed(i,1))^2 + ...
+        (pred(2)-Bcleanprobed(i,2))^2);
 end
 
 
-interpolant = scatteredInterpolant(BProbedPoints(:,1),...
-    BProbedPoints(:,2),Berrors);
+interpolant = scatteredInterpolant(Bcleanprobed(:,1),...
+    Bcleanprobed(:,2),Berrors);
 [xx,yy] = meshgrid(linspace(10,35,100));
 error_interp = interpolant(xx,yy);
 
-subplot(2,4,6);
+subplot(2,3,5);
 contourf(xx,yy,error_interp)
-title('B errors: Edge Sensors Break');
+title('B errors: unknown damage');
 caxis([0 20]);
+text(15,15,string(mean(Berrors)),'Fontsize',15);
 
-%% Lost centres - sensors 3 & 7 broken
+%% Lost sensors: 4 & 5 broken & known
 
-Aerrors = zeros(5000,1);
-for i = 1:5000
-    [pred, ~, ~] = ANN_lostcentre([Arelativefiltered(i, 1:2)...
-        Arelativefiltered(i, 4:6) Arelativefiltered(i, 8)]);
-    Aerrors(i) = sqrt((pred(1)-AProbedPoints(i,1))^2 + ...
-        (pred(2)-AProbedPoints(i,2))^2);
+Aerrors = zeros(length(Acleanrelfil),1);
+for i = 1:length(Acleanrelfil)
+    [pred, ~, ~] = Abroke([Acleanrelfil(i, 1:3)...
+        Acleanrelfil(i, 6:8)]);
+    Aerrors(i) = sqrt((pred(1)-Acleanprobed(i,1))^2 + ...
+        (pred(2)-Acleanprobed(i,2))^2);
 end
 
-interpolant = scatteredInterpolant(AProbedPoints(:,1),...
-    AProbedPoints(:,2),Aerrors);
+interpolant = scatteredInterpolant(Acleanprobed(:,1),...
+    Acleanprobed(:,2),Aerrors);
 [xx,yy] = meshgrid(linspace(10,35,100));
 error_interp = interpolant(xx,yy);
 
-subplot(2,4,3);
+subplot(2,3,3);
 contourf(xx,yy,error_interp);
-title('A errors: Centre Sensors Break');
+title('A errors: 4 & 5 Break');
 caxis([0 20]);
+text(15,15,string(mean(Aerrors)),'Fontsize',15);
 
-Berrors = zeros(5000,1);
-for i = 1:5000
-    [pred, ~, ~] = BNN_lostcentre([Brelativefiltered(i, 1:2)...
-        Brelativefiltered(i, 4:6) Brelativefiltered(i, 8)]);
-    Berrors(i) = sqrt((pred(1)-BProbedPoints(i,1))^2 + ...
-        (pred(2)-BProbedPoints(i,2))^2);
+Berrors = zeros(length(Bcleanrelfil),1);
+for i = 1:length(Bcleanrelfil)
+    [pred, ~, ~] = Bbroke([Bcleanrelfil(i, 1:3)...
+        Bcleanrelfil(i, 6:8)]);
+    Berrors(i) = sqrt((pred(1)-Bcleanprobed(i,1))^2 + ...
+        (pred(2)-Bcleanprobed(i,2))^2);
 end
 
 
-interpolant = scatteredInterpolant(BProbedPoints(:,1),...
-    BProbedPoints(:,2),Berrors);
+interpolant = scatteredInterpolant(Bcleanprobed(:,1),...
+    Bcleanprobed(:,2),Berrors);
 [xx,yy] = meshgrid(linspace(10,35,100));
 error_interp = interpolant(xx,yy);
 
-subplot(2,4,7);
+subplot(2,3,6);
 contourf(xx,yy,error_interp)
-title('B errors: Centre Sensors Break');
+title('B errors: 4 & 5 Break');
 caxis([0 20]);
-
-%% Lost adjacent - sensors 3 & 4 broken
-%% NEW: 4 & 5
-
-Aerrors = zeros(length(A3broke),1);
-for i = 1:length(A3broke)
-    [pred, ~, ~] = A3brokefunc([A3(i, 1:3)...
-        A3(i, 6:11) A3(i, 14:19) A3(i, 22:24)]);
-    Aerrors(i) = sqrt((pred(1)-AProbedPoints(i,1))^2 + ...
-        (pred(2)-AProbedPoints(i,2))^2);
-end
-
-interpolant = scatteredInterpolant(AProbedPoints(:,1),...
-    AProbedPoints(:,2),Aerrors);
-[xx,yy] = meshgrid(linspace(10,35,100));
-error_interp = interpolant(xx,yy);
-
-subplot(2,4,4);
-contourf(xx,yy,error_interp);
-title('A errors: Adjacent Sensors Break');
-caxis([0 20]);
-
-Berrors = zeros(length(B3broke),1);
-for i = 1:length(B3broke)
-    [pred, ~, ~] = B3brokefunc([B3(i, 1:3)...
-        B3(i, 6:11) B3(i, 14:19) B3(i, 22:24)]);
-    Berrors(i) = sqrt((pred(1)-BProbedPoints(i,1))^2 + ...
-        (pred(2)-BProbedPoints(i,2))^2);
-end
-
-
-interpolant = scatteredInterpolant(BProbedPoints(:,1),...
-    BProbedPoints(:,2),Berrors);
-[xx,yy] = meshgrid(linspace(10,35,100));
-error_interp = interpolant(xx,yy);
-
-subplot(2,4,8);
-contourf(xx,yy,error_interp)
-title('B errors: Adjacent Sensors Break');
-caxis([0 20]);
+text(15,15,string(mean(Berrors)),'Fontsize',15);

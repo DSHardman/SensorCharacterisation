@@ -59,9 +59,9 @@ void loop() {
   Serial.print(",");
   Serial.print(sensorValue6);
   Serial.print(",");
-  Serial.print(sensorValue7);
-  Serial.print(",");
-  Serial.println(millis() - gtime);
+  Serial.println(sensorValue7);
+  //Serial.print(",");
+  //Serial.println(millis() - gtime);
  
   while (millis() - mtime < 100) {
     continue;
