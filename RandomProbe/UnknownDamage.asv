@@ -3,15 +3,23 @@ robustness = zeros(7,1);
 for k = 1:7
     missingpairs = nchoosek(1:8, k);
     allmissing = zeros(size(missingpairs,1),size(missingpairs,2)+2);
+
+    
+    allAerrors = zeros(size(missingpairs,1)*length(Adata),1);
+    allBerrors = zeros(size(missingpairs,1)*length(Bdata),1);
     
     for i = 1:size(missingpairs, 1)
+        %[Amean, Bmean] = meanerrors(missingpairs(i,:),...
+        %    Acleanrelfil, Bcleanrelfil, Acleanprobed, Bcleanprobed);
         [Amean, Bmean] = meanerrors(missingpairs(i,:),...
             Acleanrelfil, Bcleanrelfil, Acleanprobed, Bcleanprobed);
         allmissing(i,:) = [missingpairs(i,:) Amean Bmean];
     end
 
+
+    %robustness(k) = (length(find(allmissing(:,end)<allmissing(:,end-1))))/...
+    %    size(allmissing,1);
     robustness(k) = mean(allmissing(:,end))/mean(allmissing(:,end-1));
-    k
 end
 
 plot(robustness);
@@ -27,7 +35,8 @@ function [Amean, Bmean] = meanerrors(miss, Adata, Bdata, Aprobe, Bprobe)
         Aerrors(i) = sqrt((pred(1)-Aprobe(i,1))^2 + ...
             (pred(2)-Aprobe(i,2))^2);
     end
-    Amean = mean(Aerrors);
+    %Amean = mean(Aerrors);
+    Amean = Aerrors;
 
     Berrors = zeros(length(Bdata),1);
     for i = 1:length(Bdata)
@@ -39,5 +48,6 @@ function [Amean, Bmean] = meanerrors(miss, Adata, Bdata, Aprobe, Bprobe)
         Berrors(i) = sqrt((pred(1)-Bprobe(i,1))^2 + ...
             (pred(2)-Bprobe(i,2))^2);
     end
-    Bmean = mean(Berrors);
+    %Bmean = mean(Berrors);
+    Bmean = Berrors;
 end
