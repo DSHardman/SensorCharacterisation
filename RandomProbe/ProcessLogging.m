@@ -1,9 +1,9 @@
 %% Section 1: load files & filter signal
 
-ProbedPoints = readtable('RandomProbe/B/B_RandomLocations.txt');
+ProbedPoints = readtable('C/C_RandomLocations.txt');
 ProbedPoints = table2array(ProbedPoints);
 
-T = readtable('RandomProbe/B/B_Logging.log'); %file to read
+T = readtable('teraterm3.log'); %file to read
 
 samplerate = 10; %Hz
 T = table2cell(T);
@@ -15,17 +15,15 @@ for i = 1:size(T,1)
     response(i,:) = results;
 end
 
-response = response(1:502733,:); %cut out data after testing has finished
-
-
+%response = response(1:502733,:); %cut out data after testing has finished
+%{
 fresponse = zeros(size(response));
 %filter noise from signal
 for i = 1:8
     fresponse(:,i) = pwc_tvdrobust(response(:,i), 10.0, 0);
     i
 end
-
-
+%}
 %% Section 2: manual input
 
 figure()
