@@ -5,7 +5,6 @@ ProbedPoints = table2array(ProbedPoints);
 
 T = readtable('D/D_Logging.log'); %file to read
 
-samplerate = 10; %Hz
 T = table2cell(T);
 
 response = zeros(size(T,1),8);

@@ -1,0 +1,11 @@
+b = bar([Cbarvals.' Dbarvals.']);
+
+b(2).FaceColor = [.2 .6 .5];
+
+set(gca, 'LineWidth', 2)
+box off
+grid on
+grid off
+ylabel('Response (pF)')
+xlabel('Position');
+set(gca, 'FontSize', 15);

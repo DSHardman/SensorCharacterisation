@@ -5,9 +5,9 @@ for k = 1:7
     allmissing = zeros(size(missingpairs,1),size(missingpairs,2)+2);
     
     for i = 1:size(missingpairs, 1)
-        [Amean, Bmean] = meanerrors(missingpairs(i,:),...
-            Acleanrelfil, Bcleanrelfil, Acleanprobed, Bcleanprobed);
-        allmissing(i,:) = [missingpairs(i,:) Amean Bmean];
+        [Cmean, Dmean] = meanerrors(missingpairs(i,:),...
+            Crelativefiltered, Drelativefiltered, CProbedPoints, DProbedPoints);
+        allmissing(i,:) = [missingpairs(i,:) Cmean Dmean];
     end
 
     robustness(k) = mean(allmissing(:,end))/mean(allmissing(:,end-1));
@@ -23,7 +23,7 @@ function [Amean, Bmean] = meanerrors(miss, Adata, Bdata, Aprobe, Bprobe)
         for j = 1:length(miss)
             data(1,miss(j)) = 0;
         end
-        [pred, ~, ~] = Anet(data);
+        [pred, ~, ~] = Cnet(data);
         Aerrors(i) = sqrt((pred(1)-Aprobe(i,1))^2 + ...
             (pred(2)-Aprobe(i,2))^2);
     end
@@ -35,7 +35,7 @@ function [Amean, Bmean] = meanerrors(miss, Adata, Bdata, Aprobe, Bprobe)
         for j = 1:length(miss)
             data(1,miss(j)) = 0;
         end   
-        [pred, ~, ~] = Bnet(data);
+        [pred, ~, ~] = Dnet(data);
         Berrors(i) = sqrt((pred(1)-Bprobe(i,1))^2 + ...
             (pred(2)-Bprobe(i,2))^2);
     end

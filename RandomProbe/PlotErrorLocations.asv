@@ -1,0 +1,119 @@
+%% Default - all sensors functioning
+
+Cerrors = zeros(length(Crelativefiltered),1);
+for i = 1:length(Crelativefiltered)
+    [pred, ~, ~] = Cnet(Crelativefiltered(i, :));
+    Cerrors(i) = sqrt((pred(1)-CProbedPoints(i,1))^2 + ...
+        (pred(2)-CProbedPoints(i,2))^2);
+end
+
+interpolant = scatteredInterpolant(CProbedPoints(:,1),...
+    CProbedPoints(:,2),Cerrors);
+[xx,yy] = meshgrid(linspace(10,35,100));
+error_interp = interpolant(xx,yy);
+
+figure();
+subplot(2,3,1);
+contourf(xx,yy,error_interp);
+title('C errors');
+%caxis([0 20]);
+%text(15,15,string(mean(Aerrors)),'Fontsize',15, 'Color', 'w');
+
+Derrors = zeros(length(Drelativefiltered),1);
+for i = 1:length(Drelativefiltered)
+    [pred, ~, ~] = Dnet(Drelativefiltered(i, :));
+    Derrors(i) = sqrt((pred(1)-DProbedPoints(i,1))^2 + ...
+        (pred(2)-DProbedPoints(i,2))^2);
+end
+
+
+interpolant = scatteredInterpolant(DProbedPoints(:,1),...
+    DProbedPoints(:,2),Derrors);
+[xx,yy] = meshgrid(linspace(10,35,100));
+error_interp = interpolant(xx,yy);
+
+subplot(2,3,4);
+contourf(xx,yy,error_interp)
+title('D errors');
+%caxis([0 20]);
+%text(15,15,string(mean(Berrors)),'Fontsize',15);
+
+%% Lost sensors: 4 & 5 broken & unknown
+
+Cerrors = zeros(length(Crelativefiltered),1);
+for i = 1:length(Crelativefiltered)
+    [pred, ~, ~] = Cnet([Crelativefiltered(i, 1:3) 0 0 Crelativefiltered(i, 6:8)]);
+    Cerrors(i) = sqrt((pred(1)-CProbedPoints(i,1))^2 + ...
+        (pred(2)-CProbedPoints(i,2))^2);
+end
+
+interpolant = scatteredInterpolant(CProbedPoints(:,1),...
+    CProbedPoints(:,2),Cerrors);
+[xx,yy] = meshgrid(linspace(10,35,100));
+error_interp = interpolant(xx,yy);
+
+subplot(2,3,2);
+contourf(xx,yy,error_interp);
+title('C errors: unknown damage');
+%caxis([0 20]);
+%text(15,15,string(mean(Aerrors)),'Fontsize',15);
+
+Derrors = zeros(length(Drelativefiltered),1);
+for i = 1:length(Drelativefiltered)
+    [pred, ~, ~] = Dnet([Drelativefiltered(i, 1:3) 0 0 Drelativefiltered(i, 6:8)]);
+    Derrors(i) = sqrt((pred(1)-DProbedPoints(i,1))^2 + ...
+        (pred(2)-DProbedPoints(i,2))^2);
+end
+
+
+interpolant = scatteredInterpolant(DProbedPoints(:,1),...
+    DProbedPoints(:,2),Derrors);
+[xx,yy] = meshgrid(linspace(10,35,100));
+error_interp = interpolant(xx,yy);
+
+subplot(2,3,5);
+contourf(xx,yy,error_interp)
+title('D errors: unknown damage');
+%caxis([0 20]);
+%text(15,15,string(mean(Berrors)),'Fontsize',15);
+
+%% Lost sensors: 4 & 5 broken & known
+
+Cerrors = zeros(length(Crelativefiltered),1);
+for i = 1:length(Crelativefiltered)
+    [pred, ~, ~] = Cbroke([Crelativefiltered(i, 1:3)...
+        Crelativefiltered(i, 6:8)]);
+    Cerrors(i) = sqrt((pred(1)-CProbedPoints(i,1))^2 + ...
+        (pred(2)-CProbedPoints(i,2))^2);
+end
+
+interpolant = scatteredInterpolant(C(:,1),...
+    Acleanprobed(:,2),Aerrors);
+[xx,yy] = meshgrid(linspace(10,35,100));
+error_interp = interpolant(xx,yy);
+
+subplot(2,3,3);
+contourf(xx,yy,error_interp);
+title('A errors: 4 & 5 Break');
+caxis([0 20]);
+%text(15,15,string(mean(Aerrors)),'Fontsize',15);
+
+Berrors = zeros(length(Bcleanrelfil),1);
+for i = 1:length(Bcleanrelfil)
+    [pred, ~, ~] = Bbroke([Bcleanrelfil(i, 1:3)...
+        Bcleanrelfil(i, 6:8)]);
+    Berrors(i) = sqrt((pred(1)-Bcleanprobed(i,1))^2 + ...
+        (pred(2)-Bcleanprobed(i,2))^2);
+end
+
+
+interpolant = scatteredInterpolant(Bcleanprobed(:,1),...
+    Bcleanprobed(:,2),Berrors);
+[xx,yy] = meshgrid(linspace(10,35,100));
+error_interp = interpolant(xx,yy);
+
+subplot(2,3,6);
+contourf(xx,yy,error_interp)
+title('B errors: 4 & 5 Break');
+caxis([0 20]);
+%text(15,15,string(mean(Berrors)),'Fontsize',15);
