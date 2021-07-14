@@ -27,7 +27,7 @@ function [Amean, Bmean] = meanerrors(miss, Adata, Bdata, Aprobe, Bprobe)
         Aerrors(i) = sqrt((pred(1)-Aprobe(i,1))^2 + ...
             (pred(2)-Aprobe(i,2))^2);
     end
-    Amean = mean(Aerrors);
+    Amean = median(Aerrors);
 
     Berrors = zeros(length(Bdata),1);
     for i = 1:length(Bdata)
@@ -39,5 +39,5 @@ function [Amean, Bmean] = meanerrors(miss, Adata, Bdata, Aprobe, Bprobe)
         Berrors(i) = sqrt((pred(1)-Bprobe(i,1))^2 + ...
             (pred(2)-Bprobe(i,2))^2);
     end
-    Bmean = mean(Berrors);
+    Bmean = median(Berrors);
 end

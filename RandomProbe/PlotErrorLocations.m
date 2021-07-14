@@ -18,10 +18,10 @@ figure();
 subplot(2,3,1);
 contourf(xx,yy,error_interp);
 %title('(a)', 'FontSize', 15);
-caxis([0 20]);
+caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(mean(Cerrors)),'Fontsize',15, 'Color', 'w');
+%text(15,15,string(median(Cerrors)),'Fontsize',15, 'Color', 'w');
 
 Derrors = zeros(length(Drelativefiltered),1);
 for i = 1:length(Drelativefiltered)
@@ -39,10 +39,10 @@ error_interp = interpolant(xx,yy);
 subplot(2,3,4);
 contourf(xx,yy,error_interp)
 %title('D errors');
-caxis([0 20]);
+caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(mean(Derrors)),'Fontsize',15);
+%text(15,15,string(median(Derrors)),'Fontsize',15);
 
 %% Lost sensors: 4 & 5 broken & unknown
 
@@ -61,10 +61,10 @@ error_interp = interpolant(xx,yy);
 subplot(2,3,2);
 contourf(xx,yy,error_interp);
 %title('(b)', 'FontSize', 15);
-caxis([0 20]);
+caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(mean(Cerrors)),'Fontsize',15);
+%text(15,15,string(median(Cerrors)),'Fontsize',15);
 
 Derrors = zeros(length(Drelativefiltered),1);
 for i = 1:length(Drelativefiltered)
@@ -82,10 +82,10 @@ error_interp = interpolant(xx,yy);
 subplot(2,3,5);
 contourf(xx,yy,error_interp)
 %title('D errors: unknown damage');
-caxis([0 20]);
+caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(mean(Derrors)),'Fontsize',15);
+%text(15,15,string(median(Derrors)),'Fontsize',15);
 
 %% Lost sensors: 4 & 5 broken & known
 
@@ -105,10 +105,10 @@ error_interp = interpolant(xx,yy);
 subplot(2,3,3);
 contourf(xx,yy,error_interp);
 %title('(c)', 'FontSize', 15);
-caxis([0 20]);
+caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(mean(Cerrors)),'Fontsize',15);
+%text(15,15,string(median(Cerrors)),'Fontsize',15);
 
 Derrors = zeros(length(Drelativefiltered),1);
 for i = 1:length(Drelativefiltered)
@@ -127,9 +127,9 @@ error_interp = interpolant(xx,yy);
 subplot(2,3,6);
 contourf(xx,yy,error_interp)
 %title('D errors: 4 & 5 Break');
-caxis([0 20]);
+caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(mean(Derrors)),'Fontsize',15);
+%text(15,15,string(median(Derrors)),'Fontsize',15);
 
 set(gcf, 'Position', [489.0000  278.6000  839.2000  580.4000]);
