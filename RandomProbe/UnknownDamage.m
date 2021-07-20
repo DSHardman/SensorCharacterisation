@@ -1,5 +1,7 @@
 robustness = zeros(7,1);
 
+meanmaxmin = zeros(7,6);
+
 for k = 1:7
     missingpairs = nchoosek(1:8, k);
     allmissing = zeros(size(missingpairs,1),size(missingpairs,2)+2);
@@ -11,9 +13,14 @@ for k = 1:7
     end
 
     robustness(k) = mean(allmissing(:,end))/mean(allmissing(:,end-1));
+    meanmaxmin(k,:) = [mean(allmissing(:,end-1))...
+        max(allmissing(:,end-1)) min(allmissing(:,end-1))...
+        mean(allmissing(:,end)) max(allmissing(:,end))...
+        min(allmissing(:,end))];
     k
 end
 
+robustness = [2.0065/2.1624; robustness];
 plot(robustness);
 
 function [Amean, Bmean] = meanerrors(miss, Adata, Bdata, Aprobe, Bprobe)

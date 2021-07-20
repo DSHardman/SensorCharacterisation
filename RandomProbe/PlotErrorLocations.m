@@ -21,7 +21,7 @@ contourf(xx,yy,error_interp);
 caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(median(Cerrors)),'Fontsize',15, 'Color', 'w');
+text(15,15,string(mean(Cerrors)),'Fontsize',15, 'Color', 'w');
 
 Derrors = zeros(length(Drelativefiltered),1);
 for i = 1:length(Drelativefiltered)
@@ -42,7 +42,7 @@ contourf(xx,yy,error_interp)
 caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(median(Derrors)),'Fontsize',15);
+text(15,15,string(mean(Derrors)),'Fontsize',15);
 
 %% Lost sensors: 4 & 5 broken & unknown
 
@@ -64,7 +64,7 @@ contourf(xx,yy,error_interp);
 caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(median(Cerrors)),'Fontsize',15);
+text(15,15,string(mean(Cerrors)),'Fontsize',15);
 
 Derrors = zeros(length(Drelativefiltered),1);
 for i = 1:length(Drelativefiltered)
@@ -85,7 +85,7 @@ contourf(xx,yy,error_interp)
 caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(median(Derrors)),'Fontsize',15);
+text(15,15,string(mean(Derrors)),'Fontsize',15);
 
 %% Lost sensors: 4 & 5 broken & known
 
@@ -108,7 +108,7 @@ contourf(xx,yy,error_interp);
 caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(median(Cerrors)),'Fontsize',15);
+text(15,15,string(mean(Cerrors)),'Fontsize',15);
 
 Derrors = zeros(length(Drelativefiltered),1);
 for i = 1:length(Drelativefiltered)
@@ -130,6 +130,6 @@ contourf(xx,yy,error_interp)
 caxis([0 9]);
 axis square
 axis off
-%text(15,15,string(median(Derrors)),'Fontsize',15);
+text(15,15,string(mean(Derrors)),'Fontsize',15);
 
 set(gcf, 'Position', [489.0000  278.6000  839.2000  580.4000]);
