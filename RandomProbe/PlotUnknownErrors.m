@@ -9,14 +9,14 @@ b(2).LineStyle = 'none';
 b(3).LineStyle = 'none';
 b(4).LineStyle = 'none';
 hold on
-e1 = errorbar(0.729:0.180:1.271, bardata(1,:), posdata(1,:), negdata(1,:));
+e1 = errorbar(0.729:0.180:1.271, bardata(1,:), negdata(1,:), posdata(1,:));
 e1.Color = [0 0 0];
 e1.LineStyle = 'None'; e1.LineWidth = 2;
-e2 = errorbar(1.729:0.180:2.271, bardata(2,:), posdata(2,:), negdata(2,:));
+e2 = errorbar(1.729:0.180:2.271, bardata(2,:), negdata(2,:), posdata(2,:));
 e2.Color = [0 0 0];
 e2.LineStyle = 'None'; e2.LineWidth = 2;
 
-ylim([0 0.7]);
+ylim([0 0.8]);
 legend({'No sensory loss'; 'Loss of any 1 sensor';...
     'Loss of any 2 sensors'; 'Loss of any 3 sensors'}, 'location', 'nw');
 
