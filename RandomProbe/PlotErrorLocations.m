@@ -4,7 +4,7 @@ subplot = @(m,n,p)subtightplot(m,n,p,[0.01 0.01], [0.005 0.05], [0.01 0.01]);
 
 Cerrors = zeros(length(Crelativefiltered),1);
 for i = 1:length(Crelativefiltered)
-    [pred, ~, ~] = Cnet(Crelativefiltered(i, :));
+    [pred, ~, ~] = myfunc(Crelativefiltered(i, :));
     Cerrors(i) = sqrt((pred(1)-CProbedPoints(i,1))^2 + ...
         (pred(2)-CProbedPoints(i,2))^2);
 end
