@@ -58,9 +58,6 @@ xlabel('Position');
 %%
 figure();
 C4 = 10^12*C4;
-for i = 1:length(C4)
-    C4(i) = 1200*(C4(i)/(1023 - C4(i)));
-end
 
 plot(0:(length(C4)-1), C4,...
     'Color', 1/255*[126 47 142], 'LineWidth', 3);
