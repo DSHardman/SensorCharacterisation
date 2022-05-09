@@ -24,6 +24,7 @@ times = [];
 tic
 while toc < 800
     readout = writeread(obj1, "FETCh:IMPedance:CORRected?");
+    %readout = writeread(obj1, "FETCh:IMPedance:FORMatted?");
     readout = split(readout,",");
     y1 = eval(readout(1));
     y2 = eval(readout(2));
