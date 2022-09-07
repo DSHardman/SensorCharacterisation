@@ -66,3 +66,45 @@ ylabel('Resistance (\Omega)');
 legend({'B2 Centre'}, 'Location', 'nw', 'FontSize', 15);
 legend boxoff
 
+%% MDPI Revise and resubmit Figures
+figure();
+Acentre = readmatrix('Acentre.log');
+Acentre = 1200./(1023./Acentre - 1); % Convert to resistances
+Acentre = Acentre(830:1600, :); % Extract 5 cycles
+
+plot(0:0.1:(length(Acentre)-1)/10, Acentre(:,5),...
+    'Color', 1/255*[0 114 189], 'LineWidth', 3);
+hold on
+plot(0:0.1:(length(Acentre)-1)/10, Acentre(:,7),...
+    'Color', 1/255*[217 83 25], 'LineWidth', 3);
+plot(0:0.1:(length(Acentre)-1)/10, Acentre(:,[1 2 3 4 6 8]),...
+    'Color', 1/255*[50 50 50], 'LineWidth', 1);
+
+set(gca, 'LineWidth', 2, 'FontSize', 15);
+set(gcf, 'Position', [192.2000  347.4000  880.8000  322.4000]);
+box off
+xlabel('Time (s)')
+ylabel('Resistance (\Omega)');
+ylim([2000 8500]);
+xlim([0 75]);
+
+%%
+Bcentre = readmatrix('Bcentre.log');
+Bcentre = 1200./(1023./Bcentre - 1); % Convert to resistances
+Bcentre = Bcentre(830:1600, :); % Extract 5 cycles
+
+plot(0:0.1:(length(Bcentre)-1)/10, Bcentre(:,5),...
+    'Color', 1/255*[237 177 32], 'LineWidth', 3);
+hold on
+plot(0:0.1:(length(Bcentre)-1)/10, Bcentre(:,7),...
+    'Color', 1/255*[126 47 142], 'LineWidth', 3);
+plot(0:0.1:(length(Bcentre)-1)/10, Bcentre(:,[1 2 3 4 6 8]),...
+    'Color', 1/255*[50 50 50], 'LineWidth', 1);
+
+set(gca, 'LineWidth', 2, 'FontSize', 15);
+set(gcf, 'Position', [192.2000  347.4000  880.8000  322.4000]);
+box off
+xlabel('Time (s)')
+ylabel('Resistance (\Omega)');
+ylim([2000 4100]);
+xlim([0 75]);
